@@ -579,7 +579,7 @@
       </div>
     </div>
     <div id="inputs" class="inputs"></div>
-    <button id="addGu" type="button" class="ghost">＋ 加一支</button>
+    <button id="addOne" type="button" class="ghost">＋ 加一支</button>
     <button id="startBtn" type="button" class="primary">开 始 抽 签</button>
     <p class="footnote">每台设备仅限一次 · 抽中后封存，不可重复抽取</p>
   </section>
@@ -760,23 +760,13 @@
     renderInputs();
   }
 
-  function addGu() {
+  function addOne() {
     if (state.locked) return;
-    const found = state.contents.findIndex(v => v.includes(GU));
-    if (found >= 0) {
-      const all = $$('#inputs input');
-      if (all[found]) {
-        all[found].focus();
-        all[found].select();
-      }
-      toast('「顾熠欢」已经在签筒里了');
-      return;
-    }
     if (state.contents.length >= MAX) {
       toast('签筒最多容纳 ' + MAX + ' 支签');
       return;
     }
-    state.contents.push(GU);
+    state.contents.push('');
     saveDraft();
     renderInputs();
     const all = $$('#inputs input');
@@ -1040,7 +1030,7 @@
   /* ---------------- 事件绑定 ---------------- */
   $('#minus').addEventListener('click', () => setCount(state.contents.length - 1));
   $('#plus').addEventListener('click', () => setCount(state.contents.length + 1));
-  $('#addGu').addEventListener('click', addGu);
+  $('#addOne').addEventListener('click', addOne);
   $('#startBtn').addEventListener('click', begin);
   $('#againBtn').addEventListener('click', openPay);
   $('#closePay').addEventListener('click', closePay);
